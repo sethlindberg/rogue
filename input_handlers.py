@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from typing import Optional
 import tcod.event
 from actions import Action, EscapeAction, MovementAction

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-from typing import Iterable, Optional, TYPE_CHECKING
+from typing import Iterable, Iterator, Optional, TYPE_CHECKING
 
 import numpy as np  # type: ignore
 from tcod.console import Console
 
+from entity import Actor
 import tile_types
 
 if TYPE_CHECKING:
@@ -29,6 +30,15 @@ class GameMap:
         self.visible = np.full((width, height), fill_value=False, order="F")
         # tiles the player has already seen:
         self.explored = np.full((width, height), fill_value=False, order="F")
+    
+    @property
+    def actors(self) -> Iterator[Actor]:
+        """ Iterate over this map's living actors """
+        yield from(
+            entity
+            for entity in self.entities
+            if isinstance(entity, Actor) and entity.is_alive
+        )
 
     def get_block_at_dest(self,
                           location_x: int,
@@ -37,6 +47,13 @@ class GameMap:
             if entity.blocks_movement and entity.x == location_x and \
                     entity.y == location_y:
                 return entity
+
+        return None
+
+    def get_actor_at_location(self, x: int, y: int) -> Optional[Actor]:
+        for actor in self.actors:
+            if actor.x == x and actor.y == y:
+                return actor
 
         return None
 

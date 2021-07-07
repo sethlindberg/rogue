@@ -35,8 +35,15 @@ class Action:
 
 
 class EscapeAction(Action):
+    ''' make like a tree and get out of here '''
     def perform(self) -> None:
         raise SystemExit()
+
+
+class WaitAction(Action):
+    ''' do nothing, so, pass'''
+    def perform(self) -> None:
+        pass
 
 
 class ActionWithDirection(Action):

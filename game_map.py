@@ -30,7 +30,7 @@ class GameMap:
         self.visible = np.full((width, height), fill_value=False, order="F")
         # tiles the player has already seen:
         self.explored = np.full((width, height), fill_value=False, order="F")
-    
+
     @property
     def actors(self) -> Iterator[Actor]:
         """ Iterate over this map's living actors """
@@ -76,7 +76,13 @@ class GameMap:
             default=tile_types.SHROUD,
         )
 
-        for entity in self.entities:
+        entities_sorted = sorted(
+            self.entities, key=lambda x: x.render_order.value
+        )
+
+        for entity in entities_sorted:
             # Only print entities in current Field of View
             if self.visible[entity.x, entity.y]:
-                console.print(entity.x, entity.y, entity.char, fg=entity.color)
+                console.print(
+                    x=entity.x, y=entity.y, string=entity.char, fg=entity.color
+                )

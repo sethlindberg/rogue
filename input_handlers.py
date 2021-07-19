@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Optional, TYPE_CHECKING
 import tcod.event
 import tcod.context
-from tcod.console import Console
+from tcod import Console
 from actions import Action, BumpAction, EscapeAction, WaitAction
 
 if TYPE_CHECKING:

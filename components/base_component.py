@@ -1,6 +1,7 @@
 #!/usr/bin/env/python3
 
 from __future__ import annotations
+from game_map import GameMap
 
 from typing import TYPE_CHECKING
 
@@ -10,8 +11,12 @@ if TYPE_CHECKING:
 
 
 class BaseComponent:
-    entity: Entity  # Owning entity instance.
+    parent: Entity  # Owning entity instance.
+
+    @property
+    def gamemap(self) -> GameMap:
+        return self.parent.gamemap
 
     @property
     def engine(self) -> Engine:
-        return self.entity.gamemap.engine
+        return self.gamemap.engine

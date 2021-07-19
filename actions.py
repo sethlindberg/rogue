@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Optional, Tuple, TYPE_CHECKING
 
 import color
+import exceptions
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -43,7 +44,7 @@ class EscapeAction(Action):
 
 
 class WaitAction(Action):
-    ''' do nothing, so, pass'''
+    ''' do nothing '''
     def perform(self) -> None:
         pass
 
@@ -83,7 +84,7 @@ class MeleeAction(ActionWithDirection):
         target = self.target_actor
 
         if not target:
-            return  # No entity to attack
+            raise exceptions.Impossible("Nothing to attack.")
 
         damage = self.entity.fighter.power - target.fighter.defense
 
@@ -109,11 +110,14 @@ class MovementAction(ActionWithDirection):
         dest_x, dest_y = self.dest_xy
 
         if not self.engine.game_map.in_bounds(dest_x, dest_y):
-            return  # Destination is out of bounds.
+            # Destination is out of bounds.
+            raise exceptions.Impossible("That way is out of bounds.")
         if not self.engine.game_map.tiles["walkable"][dest_x, dest_y]:
-            return  # Destination blocked by tile.
+            # Destination blocked by tile.
+            raise exceptions.Impossible("That way is blocked.")
         if self.engine.game_map.get_block_at_dest(dest_x, dest_y):
-            return  # Destination blocked by an entity.
+            # Destination blocked by an entity.
+            raise exceptions.Impossible("Something is in your way.")
 
         self.entity.move(self.dx, self.dy)
 

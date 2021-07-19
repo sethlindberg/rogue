@@ -26,7 +26,7 @@ class Consumable(BaseComponent):
         `action` is the context for this activation.
         """
         raise NotImplementedError()
-    
+
     def consume(self) -> None:
         """
         Remove the consumed item from its containing inventory.

@@ -92,12 +92,6 @@ class ItemAction(Action):
         self.item.consumable.activate(self)
 
 
-class EscapeAction(Action):
-    ''' make like a tree and get out of here '''
-    def perform(self) -> None:
-        raise SystemExit()
-
-
 class DropItem(ItemAction):
     def perform(self) -> None:
         self.entity.inventory.drop(self.item)

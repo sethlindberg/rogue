@@ -51,6 +51,7 @@ def place_entities(
     number_of_monsters = random.randint(0, maximum_monsters)
     number_of_items = random.randint(0, maximum_items)
 
+    # TODO: refactor
     for i in range(number_of_monsters):
         x = random.randint(room.x1 + 1, room.x2 - 1)
         y = random.randint(room.y1 + 1, room.y2 - 1)
@@ -62,6 +63,7 @@ def place_entities(
             else:
                 entity_factories.troll.spawn(dungeon, x, y)
 
+    # TODO: refactor
     for i in range(number_of_items):
         x = random.randint(room.x1 + 1, room.x2 - 1)
         y = random.randint(room.y1 + 1, room.y2 - 1)
@@ -70,6 +72,8 @@ def place_entities(
         if not any(entity.x == x and entity.y == y for entity in dungeon.entities):
             if item_chance < 0.7:
                 entity_factories.health_potion.spawn(dungeon, x, y)
+            elif item_chance < 0.9:
+                entity_factories.confusion_scroll.spawn(dungeon, x, y)
             else:
                 entity_factories.lightning_scroll.spawn(dungeon, x, y)
 

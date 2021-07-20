@@ -5,3 +5,9 @@ class Impossible(Exception):
 
     `Exception`: Message raised when the exception is thrown
     """
+
+
+class QuitWithoutSaving(Exception):
+    """
+    An exception raised to exit the game without automatically saving.
+    """

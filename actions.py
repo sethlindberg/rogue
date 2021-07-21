@@ -5,6 +5,7 @@ from typing import Optional, Tuple, TYPE_CHECKING
 
 import color
 import exceptions
+import random
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -154,7 +155,8 @@ class MeleeAction(ActionWithDirection):
         if not target:
             raise exceptions.Impossible("Nothing to attack.")
 
-        damage = self.entity.fighter.power - target.fighter.defense
+        # power plus 1d6 is damage
+        damage = self.entity.fighter.power + random.randint(0, 6) - target.fighter.defense
 
         attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
         if self.entity is self.engine.player:

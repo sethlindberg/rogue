@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Optional, TYPE_CHECKING
 
 import actions
+from random import randint
 import color
 import components.ai
 from components.base_component import BaseComponent
@@ -78,12 +79,14 @@ class ConfusionConsumable(Consumable):
 
 
 class HealingConsumable(Consumable):
-    def __init__(self, amount: int):
-        self.amount = amount
+    def __init__(self, max_amount: int):
+        self.max_amount = max_amount
 
     def activate(self, action: actions.ItemAction) -> None:
         consumer = action.entity
-        amount_recovered = consumer.fighter.heal(self.amount)
+        # amount between 2 and top amount
+        amount = randint(1, self.max_amount)
+        amount_recovered = consumer.fighter.heal(amount)
 
         if amount_recovered > 0:
             self.engine.message_log.add_message(

@@ -16,6 +16,7 @@ player = Actor(char="@",
                level=Level(level_up_base=200),
                )
 
+# monsters
 orc = Actor(char="o",
             color=(63, 127, 63),
             name="Orc",
@@ -24,6 +25,16 @@ orc = Actor(char="o",
             inventory=Inventory(capacity=0),
             level=Level(xp_given=20),
             )
+
+kobold = Actor(
+    char="k",
+    color=(0, 127, 254),
+    name="Kobold",
+    ai_cls=HostileEnemy,
+    fighter=Fighter(hp=5, defense=1, power=2),
+    inventory=Inventory(capacity=0),
+    level=Level(xp_given=10),
+)
 
 troll = Actor(char="T",
               color=(0, 127, 0),
@@ -34,11 +45,12 @@ troll = Actor(char="T",
               level=Level(xp_given=50),
               )
 
+# items
 health_potion = Item(
     char="!",
     color=(127, 0, 255),
     name="Health Potion",
-    consumable=consumable.HealingConsumable(amount=4),
+    consumable=consumable.HealingConsumable(max_amount=8),
 )
 
 lightning_scroll = Item(

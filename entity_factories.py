@@ -3,6 +3,7 @@ from components import consumable
 from components.ai import HostileEnemy
 from components.fighter import Fighter
 from components.inventory import Inventory
+from components.level import Level
 from entity import Actor, Item
 
 
@@ -12,6 +13,7 @@ player = Actor(char="@",
                ai_cls=HostileEnemy,
                fighter=Fighter(hp=30, defense=2, power=5),
                inventory=Inventory(capacity=26),
+               level=Level(level_up_base=200),
                )
 
 orc = Actor(char="o",
@@ -20,6 +22,7 @@ orc = Actor(char="o",
             ai_cls=HostileEnemy,
             fighter=Fighter(hp=10, defense=0, power=3),
             inventory=Inventory(capacity=0),
+            level=Level(xp_given=20),
             )
 
 troll = Actor(char="T",
@@ -28,6 +31,7 @@ troll = Actor(char="T",
               ai_cls=HostileEnemy,
               fighter=Fighter(hp=16, defense=1, power=4),
               inventory=Inventory(capacity=0),
+              level=Level(xp_given=50),
               )
 
 health_potion = Item(

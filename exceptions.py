@@ -7,7 +7,7 @@ class Impossible(Exception):
     """
 
 
-class QuitWithoutSaving(Exception):
+class QuitWithoutSaving(SystemExit):
     """
     An exception raised to exit the game without automatically saving.
     """
